@@ -1,3 +1,5 @@
+var Utils = require('../lib/utils');
+
 describe('Sequential', function() {
 	var sequential;
 
@@ -24,16 +26,14 @@ describe('Sequential', function() {
 		];
 
 		nonIterables.forEach(nonIterable => 
-			expect(() => 
-				sequential(nonIterable, () => {})
-			).toThrow()
+			expect( () => sequential(nonIterable, () => {}) ).toThrow(new TypeError(Utils.NO_ITERABLE_ERROR))
 		);
 	});
 
 	it('should return a promise with correct input (iterable, function)', function() {
 		var value = sequential([], () => {});
 
-		isPromise = Promise.resolve(value) === value;
+		var isPromise = Promise.resolve(value) === value;
 
 		expect(isPromise).toBe(true);
 	});
@@ -41,7 +41,7 @@ describe('Sequential', function() {
 
 	it('should give the last value to the next call', function(done) {
 		var iteratedValues = [];
-		var initialValues = [123, "", [], {}, 0, -1, "2"];
+		var initialValues = [123, '', [], {}, 0, -1, '2'];
 
 		sequential(initialValues, (value) => {
 			return new Promise((resolve) => {
@@ -60,7 +60,7 @@ describe('Sequential', function() {
 
 	it('should iterate in order', function(done) {
 		var iteratedValues = [];
-		var initialValues = [123, "", [], {}, 0, -1, "2"];
+		var initialValues = [123, '', [], {}, 0, -1, '2'];
 
 		sequential(initialValues, (value) => {
 			return new Promise((resolve) => {
@@ -78,7 +78,7 @@ describe('Sequential', function() {
 	});
 
 	it('should end with the last value of the iteration', function(done) {
-		var initialValues = [123, "", [], {}, 0, -1, "2"];
+		var initialValues = [123, '', [], {}, 0, -1, '2'];
 
 		sequential(initialValues, (value) => {
 			return new Promise((resolve) => {
@@ -114,13 +114,8 @@ describe('Sequential', function() {
 	});
 
 	it('should end with undefined if an empty array is past', function(done) {
-		sequential([], (value) => {
-			return new Promise((resolve) => {
-				setTimeout(() => {
-					resolve(value);
-				}, 4);
-			});
-		})
+		/* istanbul ignore next - This function will never be executed */
+		sequential([], (value) => value)
 		.then(lastValue => {
 			expect(typeof lastValue).toBe('undefined');
 			done();
@@ -162,7 +157,7 @@ describe('Sequential', function() {
 		sequential(initialValues, value => {
 			iteratedValues.push(value);
 		})
-		.then(lastValue => {
+		.then(() => {
 			var equal = initialValues.every((value, index) => value === iteratedValues[index]);
 			expect(equal).toBe(true);
 			done();
