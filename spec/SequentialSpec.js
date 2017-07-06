@@ -9,15 +9,25 @@ describe('Sequential', function() {
 		expect(typeof sequential).toBe('function');
 	});
 
-	it('should return a promise with correct input', function() {
-		
-	});
-
-	it('should throw id the second argument is not a function', function() {
+	it('should throw if the second argument is not a function', function() {
 		
 	});
 
 	it('should throw an error if the input is not an iterable or a generator', function() {
+		let nonIterables = [
+			{}, [], NaN, 1, '', 'asd', /a/,
+			class Classname {},
+			{[Symbol.iterable]: {}} //missing the next function
+		];
+
+		nonIterables.forEach(nonIterable => 
+			expect(() => 
+				sequential(nonIterable, () => {})
+			).toThrow()
+		);
+	});
+
+	it('should return a promise with correct input (iterable, function)', function() {
 		
 	});
 
