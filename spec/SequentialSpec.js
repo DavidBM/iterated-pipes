@@ -1,23 +1,26 @@
 var Utils = require('../lib/utils');
+var sequential = require('../lib/sequential');
 
 describe('Sequential', function() {
-	var sequential;
+	var piped;
 
 	beforeEach(function() {
-		sequential = require('../lib/sequential');
+		piped = require('../lib/lib');
 	});
 
 	it('should be a function', function() {
-		expect(typeof sequential).toBe('function');
+		expect(typeof piped.iterate([]).sequential).toBe('function');
 	});
 
 	it('should throw if the second argument is not a function', function() {
-		expect(() => sequential([], NaN)).toThrow(new TypeError(sequential.NO_FUNCTION_CALLBACK));
-		expect(() => sequential([], [])).toThrow(new TypeError(sequential.NO_FUNCTION_CALLBACK));
-		expect(() => sequential([], {})).toThrow(new TypeError(sequential.NO_FUNCTION_CALLBACK));
-		expect(() => sequential([], 1)).toThrow(new TypeError(sequential.NO_FUNCTION_CALLBACK));
-		expect(() => sequential([], '')).toThrow(new TypeError(sequential.NO_FUNCTION_CALLBACK));
-		expect(() => sequential([], 'asd')).toThrow(new TypeError(sequential.NO_FUNCTION_CALLBACK));
+		expect(() => {
+			piped.iterate([]).sequential(NaN);
+		}).toThrow(new TypeError(sequential.NO_FUNCTION_CALLBACK));
+		expect(() => piped.iterate([]).sequential([])).toThrow(new TypeError(sequential.NO_FUNCTION_CALLBACK));
+		expect(() => piped.iterate([]).sequential({})).toThrow(new TypeError(sequential.NO_FUNCTION_CALLBACK));
+		expect(() => piped.iterate([]).sequential(1)).toThrow(new TypeError(sequential.NO_FUNCTION_CALLBACK));
+		expect(() => piped.iterate([]).sequential('')).toThrow(new TypeError(sequential.NO_FUNCTION_CALLBACK));
+		expect(() => piped.iterate([]).sequential('asd')).toThrow(new TypeError(sequential.NO_FUNCTION_CALLBACK));
 	});
 
 	it('should throw an error if the input is not an iterable or a generator', function() {
@@ -26,12 +29,12 @@ describe('Sequential', function() {
 		];
 
 		nonIterables.forEach(nonIterable => 
-			expect( () => sequential(nonIterable, () => {}) ).toThrow(new TypeError(Utils.NO_ITERABLE_ERROR))
+			expect( () => piped.iterate(nonIterable).sequential(() => {}) ).toThrow(new TypeError(Utils.NO_ITERABLE_ERROR))
 		);
 	});
 
 	it('should return a promise with correct input (iterable, function)', function() {
-		var value = sequential([], () => {});
+		var value = piped.iterate([]).sequential(() => {});
 
 		var isPromise = Promise.resolve(value) === value;
 
@@ -43,7 +46,7 @@ describe('Sequential', function() {
 		var iteratedValues = [];
 		var initialValues = [123, '', [], {}, 0, -1, '2'];
 
-		sequential(initialValues, (value) => {
+		piped.iterate(initialValues).sequential((value) => {
 			return new Promise((resolve) => {
 				setTimeout(() => {
 					iteratedValues.push(value);
@@ -51,9 +54,8 @@ describe('Sequential', function() {
 				}, 4);
 			});
 		})
-		.then(() => {
-			var equal = initialValues.every((value, index) => value === iteratedValues[index]);
-			expect(equal).toBe(true);
+		.then((value) => {
+			expect(iteratedValues).toEqual(initialValues);
 			done();
 		});
 	});
@@ -62,7 +64,7 @@ describe('Sequential', function() {
 		var iteratedValues = [];
 		var initialValues = [123, '', [], {}, 0, -1, '2'];
 
-		sequential(initialValues, (value) => {
+		piped.iterate(initialValues).sequential((value) => {
 			return new Promise((resolve) => {
 				setTimeout(() => {
 					iteratedValues.push(value);
@@ -71,8 +73,7 @@ describe('Sequential', function() {
 			});
 		})
 		.then(() => {
-			var equal = initialValues.every((value, index) => value === iteratedValues[index]);
-			expect(equal).toBe(true);
+			expect(iteratedValues).toEqual(initialValues);
 			done();
 		});
 	});
@@ -80,7 +81,7 @@ describe('Sequential', function() {
 	it('should end with the last value of the iteration', function(done) {
 		var initialValues = [123, '', [], {}, 0, -1, '2'];
 
-		sequential(initialValues, (value) => {
+		piped.iterate(initialValues).sequential((value) => {
 			return new Promise((resolve) => {
 				setTimeout(() => {
 					resolve(value);
@@ -100,7 +101,7 @@ describe('Sequential', function() {
 				yield index++;
 		};
 
-		sequential(generator, (value) => {
+		piped.iterate(generator).sequential((value) => {
 			return new Promise((resolve) => {
 				setTimeout(() => {
 					resolve(value);
@@ -115,7 +116,7 @@ describe('Sequential', function() {
 
 	it('should end with undefined if an empty array is past', function(done) {
 		/* istanbul ignore next - This function will never be executed */
-		sequential([], (value) => value)
+		piped.iterate([]).sequential((value) => value)
 		.then(lastValue => {
 			expect(typeof lastValue).toBe('undefined');
 			done();
@@ -123,9 +124,9 @@ describe('Sequential', function() {
 	});
 
 	it('should end with undefined if the generator ends on the first execution', function(done) {
-		sequential(function* () {
+		piped.iterate(function* () {
 			yield undefined;
-		}, (value) => {
+		}).sequential((value) => {
 			return new Promise((resolve) => {
 				setTimeout(() => {
 					resolve(value);
@@ -143,7 +144,7 @@ describe('Sequential', function() {
 
 		var fn = (value) => value * 2;
 
-		sequential(initialValues, fn)
+		piped.iterate(initialValues).sequential(fn)
 		.then(lastValue => {
 			expect(lastValue).toBe(fn(initialValues.pop()));
 			done();
@@ -154,12 +155,11 @@ describe('Sequential', function() {
 		var initialValues = [1, 2, 5];
 		var iteratedValues = [];
 
-		sequential(initialValues, value => {
+		piped.iterate(initialValues).sequential(value => {
 			iteratedValues.push(value);
 		})
 		.then(() => {
-			var equal = initialValues.every((value, index) => value === iteratedValues[index]);
-			expect(equal).toBe(true);
+			expect(iteratedValues).toEqual(initialValues);
 			done();
 		});
 	});
@@ -168,7 +168,7 @@ describe('Sequential', function() {
 		var iteratedValues = [];
 		var initialValues = [10, 200, 1, 30, 45, 4];
 
-		sequential(initialValues, (value) => {
+		piped.iterate(initialValues).sequential((value) => {
 			return new Promise((resolve) => {
 				setTimeout(() => {
 					iteratedValues.push(value);
@@ -177,8 +177,7 @@ describe('Sequential', function() {
 			});
 		})
 		.then(() => {
-			var equal = initialValues.every((value, index) => value === iteratedValues[index]);
-			expect(equal).toBe(true);
+			expect(iteratedValues).toEqual(initialValues);
 			done();
 		});
 	});
