@@ -1,4 +1,4 @@
-# Iterated Pipes (Work In Porgress - WIP)　　]^[
+# ]^[　Iterated Pipes　]^[
 
 Iterator based utilities for handling sync & async tasks like async execution with a maximum for parallel tasks at the same time.
 
@@ -15,6 +15,8 @@ Iterator based utilities for handling sync & async tasks like async execution wi
 
 <a name="methods"></a>
 # Methods
+
+This libreary is based in iterators, that means, it can work over everything that is iterable (arrays, generators, strings, ...). Just use the static method `iterate` and select the method. There is two basic patter, sequencial and parallel (wich admits a maximum of concurrency).
 
 <a name="sequencial"></a>
 ## sequencial
