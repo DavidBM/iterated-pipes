@@ -1,5 +1,4 @@
-var Utils = require('../lib/utils');
-var sequential = require('../lib/sequential');
+var utils = require('../lib/utils');
 
 describe('Sequential', function() {
 	var piped;
@@ -13,14 +12,12 @@ describe('Sequential', function() {
 	});
 
 	it('should throw if the second argument is not a function', function() {
-		expect(() => {
-			piped.iterate([]).sequential(NaN);
-		}).toThrow(new TypeError(sequential.NO_FUNCTION_CALLBACK));
-		expect(() => piped.iterate([]).sequential([])).toThrow(new TypeError(sequential.NO_FUNCTION_CALLBACK));
-		expect(() => piped.iterate([]).sequential({})).toThrow(new TypeError(sequential.NO_FUNCTION_CALLBACK));
-		expect(() => piped.iterate([]).sequential(1)).toThrow(new TypeError(sequential.NO_FUNCTION_CALLBACK));
-		expect(() => piped.iterate([]).sequential('')).toThrow(new TypeError(sequential.NO_FUNCTION_CALLBACK));
-		expect(() => piped.iterate([]).sequential('asd')).toThrow(new TypeError(sequential.NO_FUNCTION_CALLBACK));
+		expect(() => piped.iterate([]).sequential(NaN)).toThrow(new TypeError(utils.NO_FUNCTION_CALLBACK));
+		expect(() => piped.iterate([]).sequential([])).toThrow(new TypeError(utils.NO_FUNCTION_CALLBACK));
+		expect(() => piped.iterate([]).sequential({})).toThrow(new TypeError(utils.NO_FUNCTION_CALLBACK));
+		expect(() => piped.iterate([]).sequential(1)).toThrow(new TypeError(utils.NO_FUNCTION_CALLBACK));
+		expect(() => piped.iterate([]).sequential('')).toThrow(new TypeError(utils.NO_FUNCTION_CALLBACK));
+		expect(() => piped.iterate([]).sequential('asd')).toThrow(new TypeError(utils.NO_FUNCTION_CALLBACK));
 	});
 
 	it('should throw an error if the input is not an iterable or a generator', function() {
@@ -29,7 +26,7 @@ describe('Sequential', function() {
 		];
 
 		nonIterables.forEach(nonIterable => 
-			expect( () => piped.iterate(nonIterable).sequential(() => {}) ).toThrow(new TypeError(Utils.NO_ITERABLE_ERROR))
+			expect( () => piped.iterate(nonIterable).sequential(() => {}) ).toThrow(new TypeError(utils.NO_ITERABLE_ERROR))
 		);
 	});
 
@@ -54,7 +51,7 @@ describe('Sequential', function() {
 				}, 4);
 			});
 		})
-		.then((value) => {
+		.then(() => {
 			expect(iteratedValues).toEqual(initialValues);
 			done();
 		});
