@@ -1,9 +1,11 @@
-# ]^[　Iterated Pipes　]^[
+# Iterated Pipes
+
 
 Iterator based utilities for handling sync & async tasks like async execution with a maximum for parallel tasks at the same time.
 
-[![Build Status](https://travis-ci.org/DavidBM/iterated-pipes.svg?branch=master)](https://travis-ci.org/DavidBM/iterated-pipes)
-[![Coverage Status](https://coveralls.io/repos/DavidBM/iterated-pipes/badge.svg?branch=master)](https://coveralls.io/r/DavidBM/iterated-pipes?branch=master)
+### ]^[　[![Build Status](https://travis-ci.org/DavidBM/iterated-pipes.svg?branch=master)](https://travis-ci.org/DavidBM/iterated-pipes)　[![Coverage Status](https://coveralls.io/repos/DavidBM/iterated-pipes/badge.svg?branch=master)](https://coveralls.io/r/DavidBM/iterated-pipes?branch=master)　]^[ 
+
+### Index
 
 <!-- MarkdownTOC autolink=true autoanchor=true bracket=round depth=0 -->
 
