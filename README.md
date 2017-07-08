@@ -1,16 +1,18 @@
 # Iterated Pipes
 
+**Iterator based utilities for handling sync & async tasks** like async execution with a maximum for parallel tasks at the same time.
 
-Iterator based utilities for handling sync & async tasks like async execution with a maximum for parallel tasks at the same time.
+[![Build Status](https://travis-ci.org/DavidBM/iterated-pipes.svg?branch=master)](https://travis-ci.org/DavidBM/iterated-pipes)
+[![Coverage Status](https://coveralls.io/repos/DavidBM/iterated-pipes/badge.svg?branch=master)](https://coveralls.io/r/DavidBM/iterated-pipes?branch=master)
 
-### ]^[　[![Build Status](https://travis-ci.org/DavidBM/iterated-pipes.svg?branch=master)](https://travis-ci.org/DavidBM/iterated-pipes)　[![Coverage Status](https://coveralls.io/repos/DavidBM/iterated-pipes/badge.svg?branch=master)](https://coveralls.io/r/DavidBM/iterated-pipes?branch=master)　]^[ 
+<img src="resources/pipe.png">
 
 ### Index
 
 <!-- MarkdownTOC autolink=true autoanchor=true bracket=round depth=0 -->
 
 - [Methods](#methods)
-	- [sequencial](#sequencial)
+	- [sequential](#sequential)
 	- [parallel](#parallel)
 
 <!-- /MarkdownTOC -->
@@ -18,10 +20,10 @@ Iterator based utilities for handling sync & async tasks like async execution wi
 <a name="methods"></a>
 # Methods
 
-This libreary is based in iterators, that means, it can work over everything that is iterable (arrays, generators, strings, ...). Just use the static method `iterate` and select the method. There is two basic patter, sequencial and parallel (wich admits a maximum of concurrency).
+This library is based in iterators, that means, **it can work over everything that is iterable** (arrays, generators, strings, ...). Just use the static method `iterate` and select the method. There is two basic patters here: **sequential** and **parallel** (witch admits a maximum of concurrency).
 
-<a name="sequencial"></a>
-## sequencial
+<a name="sequential"></a>
+## sequential
 
 Execute the promises one after the other, always waiting to the previous one to finish before executing the next Promise.
 
