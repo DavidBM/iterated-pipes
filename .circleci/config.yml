@@ -60,7 +60,7 @@ workflows:
     jobs:
       - build
       - deploy:
-        type: approval
-        requires: 
-          - build
+          type: approval
+          requires: 
+            - build
 
