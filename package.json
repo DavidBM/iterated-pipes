@@ -6,7 +6,7 @@
   "scripts": {
     "test": "NODE_ENV=test ./node_modules/.bin/istanbul cover -x \"**/spec/**\" ./node_modules/.bin/jasmine",
     "coveralls": "cat ./coverage/lcov.info | ./node_modules/.bin/coveralls",
-    "coveralls-circleci": "COVERALLS_PARALLEL=true COVERALLS_SERVICE_NAME=circleci COVERALLS_REPO_TOKEN=Knm3dc9NRputhte3zT8NXS5lnwRKs5sH7 cat ./coverage/lcov.info | ./node_modules/.bin/coveralls"
+    "coveralls-circleci": "COVERALLS_PARALLEL=true COVERALLS_SERVICE_NAME=circle-ci COVERALLS_REPO_TOKEN=Knm3dc9NRputhte3zT8NXS5lnwRKs5sH7 cat ./coverage/lcov.info | ./node_modules/.bin/coveralls"
   },
   "repository": {
     "type": "git",
