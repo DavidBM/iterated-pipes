@@ -54,7 +54,7 @@ notify:
   webhooks:
     - url: https://coveralls.io/webhook?repo_token=Knm3dc9NRputhte3zT8NXS5lnwRKs5sH7
 
-workflow:
+workflows:
   version: 2
   deploy:
     - build
