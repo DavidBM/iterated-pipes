@@ -57,5 +57,6 @@ notify:
 workflows:
   version: 2
   deploy:
-    - build
-    - deploy
+    jobs:
+      - build
+      - deploy
