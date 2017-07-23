@@ -39,6 +39,28 @@ jobs:
       - run: npm test
 
       - run: npm run coveralls-circleci
+
+  deploy:
+    docker:
+      - image: circleci/node:7.10
+
+    working_directory: ~/repo
+    steps:
+      - checkout
+
+      - run: node -v
+
 notify:
   webhooks:
     - url: https://coveralls.io/webhook?repo_token=Knm3dc9NRputhte3zT8NXS5lnwRKs5sH7
+
+workflows:
+  version: 2
+  deploy:
+    jobs:
+      - build
+      - deploy:
+          type: approval
+          requires: 
+            - build
+
