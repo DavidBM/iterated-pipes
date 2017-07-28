@@ -1,6 +1,6 @@
 {
   "name": "iterated-pipes",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Iterator based utilities for handling sync & async tasks like async execution with a maximum for parallel tasks at the same time",
   "main": "lib/lib.js",
   "scripts": {
