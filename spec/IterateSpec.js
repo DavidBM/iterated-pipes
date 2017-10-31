@@ -3,7 +3,6 @@ describe('Iterate', function() {
 	var IterateClass = require('../lib/iterate');
 
 	beforeEach(function() {
-		IterateClass = require('../lib/iterate');
 		iterate = IterateClass.iterate([]);
 	});
 
