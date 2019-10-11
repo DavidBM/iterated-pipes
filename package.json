@@ -1,10 +1,10 @@
 {
   "name": "iterated-pipes",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Iterator based utilities for handling sync & async tasks like async execution with a maximum for parallel tasks at the same time",
   "main": "lib/lib.js",
   "scripts": {
-    "test": "NODE_ENV=test ./node_modules/.bin/istanbul cover -x \"**/spec/**\" ./node_modules/.bin/jasmine",
+    "test": "NODE_ENV=test ./node_modules/.bin/nyc --exclude \"**/spec/**\" --reporter=lcov --reporter=text-summary ./node_modules/.bin/jasmine",
     "coveralls": "cat ./coverage/lcov.info | ./node_modules/.bin/coveralls",
     "coveralls-circleci": "COVERALLS_PARALLEL=true COVERALLS_SERVICE_NAME=circle-ci COVERALLS_REPO_TOKEN=Knm3dc9NRputhte3zT8NXS5lnwRKs5sH7 cat ./coverage/lcov.info | ./node_modules/.bin/coveralls"
   },
@@ -32,8 +32,9 @@
   },
   "homepage": "https://github.com/DavidBM/iterated-pipes#readme",
   "devDependencies": {
-    "coveralls": "^3.0.2",
-    "istanbul": "^0.4.5",
-    "jasmine": "^2.6.0"
-  }
+    "coveralls": "^3.0.7",
+    "jasmine": "^2.6.0",
+    "nyc": "^14.1.1"
+  },
+  "dependencies": {}
 }
