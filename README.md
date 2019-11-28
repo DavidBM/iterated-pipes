@@ -2,6 +2,8 @@
 
 **Iterator based utilities for handling sync & async tasks** like async execution with a maximum for parallel tasks at the same time.
 
+### Don't get fooled by this repository last update, this repository is maintained and we use it daily where I work. It is just that we aren't having any bugs.
+
 [![Build Status](https://travis-ci.org/DavidBM/iterated-pipes.svg?branch=master)](https://travis-ci.org/DavidBM/iterated-pipes)
 [![Coverage Status](https://coveralls.io/repos/DavidBM/iterated-pipes/badge.svg?branch=master)](https://coveralls.io/r/DavidBM/iterated-pipes?branch=master)
 [![Code Climate](https://codeclimate.com/github/DavidBM/iterated-pipes.svg)](https://codeclimate.com/github/DavidBM/iterated-pipes)
